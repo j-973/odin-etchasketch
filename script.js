@@ -1,3 +1,12 @@
+getMousePos = () => {
+  let mousePosX = event.clientX;
+  let mousePosY = event.clientY;
+  mousePosXY = console.log([mousePosX, mousePosY]);
+  return mousePosXY;
+}
+
+addEventListener('onmousemove', getMousePos);
+
 createContainer = () => {
   let container = document.createElement('div');
   container.setAttribute('id', 'container');
@@ -13,6 +22,7 @@ createGrid = (numRows, numCells) => {
     for (c = 0; c < numCells; c++) {
       cell = document.createElement('div');
       cell.setAttribute('class', 'cell');
+      cell.setAttribute('id', `cell-${r}-${c}`); //gives each cell a unique numerical id for color change purposes
       document.getElementsByClassName('row')[r].appendChild(cell);
     }
   }
