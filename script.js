@@ -1,11 +1,14 @@
-getMousePos = () => {
-  let mousePosX = event.clientX;
-  let mousePosY = event.clientY;
-  mousePosXY = console.log([mousePosX, mousePosY]);
+//ev refers to the mousemove event object 
+//it allows access to the x and y coordinates of the mouse, among other properties recorded on mousemove event
+getMousePos = (ev) => {
+  let mousePosX = ev.clientX;
+  let mousePosY = ev.clientY;
+  let mousePosXY = `X:${mousePosX}, Y:${mousePosY}`
+  console.log(mousePosXY);
   return mousePosXY;
 }
 
-addEventListener('onmousemove', getMousePos);
+document.addEventListener('mousemove', getMousePos);
 
 createContainer = () => {
   let container = document.createElement('div');
@@ -22,7 +25,7 @@ createGrid = (numRows, numCells) => {
     for (c = 0; c < numCells; c++) {
       cell = document.createElement('div');
       cell.setAttribute('class', 'cell');
-      cell.setAttribute('id', `cell-${r}-${c}`); //gives each cell a unique numerical id for color change purposes
+      cell.setAttribute('id', `cell-${r}-${c}`); //gives each cell a unique numerical id for color change tracking purposes
       document.getElementsByClassName('row')[r].appendChild(cell);
     }
   }
