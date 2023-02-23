@@ -27,8 +27,14 @@ createGrid = (numRows, numCells) => {
       cell.setAttribute('class', 'cell');
       cell.setAttribute('id', `cell-${r}-${c}`); //gives each cell a unique numerical id for color change tracking purposes
       document.getElementsByClassName('row')[r].appendChild(cell);
+      cell.addEventListener('mouseenter', changeColor); 
     }
   }
+}
+
+changeColor = (ev) => {
+  //ev.currenttarget changes the cell's background color (since each cell has an event listener)
+  ev.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 1)';
 }
 
 createContainer();
