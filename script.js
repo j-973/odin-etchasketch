@@ -1,19 +1,22 @@
-//ev refers to the mousemove event object 
-//it allows access to the x and y coordinates of the mouse, among other properties recorded on mousemove event
-getMousePos = (ev) => {
-  let mousePosX = ev.clientX;
-  let mousePosY = ev.clientY;
-  let mousePosXY = `X:${mousePosX}, Y:${mousePosY}`
-  console.log(mousePosXY);
-  return mousePosXY;
-}
+//page wrapper, button, and gridContainer of divs
+let wrapper = document.createElement('div');
+wrapper.setAttribute('id', 'wrapper');
+document.body.appendChild(wrapper);
 
-document.addEventListener('mousemove', getMousePos);
+let title = document.createElement('h1');
+title.setAttribute('id', 'title');
+wrapper.appendChild(title);
+title.textContent = 'Etch-a-Sketch';
 
-createContainer = () => {
-  let container = document.createElement('div');
-  container.setAttribute('id', 'container');
-  document.body.appendChild(container);
+let btnNewGrid = document.createElement('button');
+btnNewGrid.setAttribute('id', 'btnNewGrid');
+wrapper.appendChild(btnNewGrid);
+btnNewGrid.textContent = 'Change Grid Size';
+
+createGridContainer = () => {
+  let gridContainer = document.createElement('div');
+  gridContainer.setAttribute('id', 'gridContainer');
+  wrapper.appendChild(gridContainer);
 }
 
 createGrid = (numRows, numCells) => {
@@ -21,7 +24,7 @@ createGrid = (numRows, numCells) => {
   for (r = 0; r < numRows; r++) {
     row = document.createElement('div');
     row.setAttribute('class', 'row')
-    document.getElementById('container').appendChild(row);
+    document.getElementById('gridContainer').appendChild(row);
     for (c = 0; c < numCells; c++) {
       cell = document.createElement('div');
       cell.setAttribute('class', 'cell');
@@ -32,10 +35,15 @@ createGrid = (numRows, numCells) => {
   }
 }
 
+changeGridSize = (sizeInput) => {
+  clearGrid();
+  sizeInput = prompt('How many squares?', '_ x _?', 'Please enter a number');
+}
+
 changeColor = (ev) => {
   //ev.currenttarget changes the cell's background color (since each cell has an event listener)
   ev.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 1)';
 }
 
-createContainer();
+createGridContainer();
 createGrid(16, 16);
