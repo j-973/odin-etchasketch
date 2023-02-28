@@ -53,9 +53,17 @@ createGrid = (gridNum) => {
       return gridNum;
 }
 
+//.random() method generates a floating point (i.e. has a decimal) value between 0 and 1. 16777215 represents the total number of color values that exist from black to white (#000000 - #FFFFFF). 
+//Math.floor returns an integer equivalent of the previously generated floating point value. Then, toString(16) converts the integer value to base 16 / hexidecimal.
+getRandomColor = (randColor) => {
+  randColor = "#" + Math.floor(Math.random()*16777215).toString(16);
+  return randColor
+}
+
+
 changeColor = (ev) => {
   //ev.currenttarget changes the cell's background color (since each cell has an event listener)
-  cellFillColor = ev.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 1)';
+  cellFillColor = ev.currentTarget.style.backgroundColor = getRandomColor();
   return cellFillColor;
 }
 
