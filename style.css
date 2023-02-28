@@ -1,10 +1,12 @@
 * {
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.4rem;
+    font-family: 'Tilt Warp', cursive;
     font-weight: bold;
 }
 
+html {
+    background-color: #EB0F10;
+}
 
 body {
     display: flex;
@@ -13,12 +15,20 @@ body {
     justify-content: center;
 }
 
+h1 {
+    font-size: 2.5rem;
+    color: #E8A65A;
+}
+
 button {
     display: flex;
     flex-direction: column;
-    opacity: 0.75;
+    opacity: 0.8;
     padding: 0.5rem;
     outline: none;
+    font-size: 1.2rem;
+    color: #E8A65A;
+    background-color: #FFFFFF;
 }
     button:hover {
         opacity: 1.0;
@@ -39,7 +49,7 @@ button {
 }
 
 div.row, div.cell {
-    background-color: lightgray;
+    background-color: #DEDDDC;
     border: 1px solid white;
 }
 
