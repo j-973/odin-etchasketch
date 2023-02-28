@@ -19,6 +19,23 @@ createGridContainer = () => {
   wrapper.appendChild(gridContainer);
 }
 
+removeExistingGrid = () => {
+  //removes the grid container div from the DOM, removing all its child divs/cells too
+  if (wrapper.contains(gridContainer)) {
+    gridContainer.remove(); 
+  }
+}
+
+changeGridNum = (newGridNum) => {
+  newGridNum = prompt('How many squares per side for new grid? (enter one number)', '_ x _?', 'Please enter a whole number');
+  removeExistingGrid();
+  createGridContainer();
+  createGrid(newGridNum);
+  return newGridNum;
+}
+
+btnNewGrid.addEventListener('click', changeGridNum);
+
 createGrid = (gridNum) => {
   //for every r rows (divs), there are c created cells (divs) nested within each row
   for (r = 0; r < gridNum; r++) {
