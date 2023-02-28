@@ -19,13 +19,13 @@ createGridContainer = () => {
   wrapper.appendChild(gridContainer);
 }
 
-createGrid = (numRows, numCells) => {
+createGrid = (gridNum) => {
   //for every r rows (divs), there are c created cells (divs) nested within each row
-  for (r = 0; r < numRows; r++) {
+  for (r = 0; r < gridNum; r++) {
     row = document.createElement('div');
     row.setAttribute('class', 'row')
     document.getElementById('gridContainer').appendChild(row);
-    for (c = 0; c < numCells; c++) {
+    for (c = 0; c < gridNum; c++) {
       cell = document.createElement('div');
       cell.setAttribute('class', 'cell');
       cell.setAttribute('id', `cell-${r}-${c}`); //gives each cell a unique numerical id for color change tracking purposes
@@ -33,17 +33,14 @@ createGrid = (numRows, numCells) => {
       cell.addEventListener('mouseenter', changeColor); 
     }
   }
-}
-
-changeGridSize = (sizeInput) => {
-  clearGrid();
-  sizeInput = prompt('How many squares?', '_ x _?', 'Please enter a number');
+      return gridNum;
 }
 
 changeColor = (ev) => {
   //ev.currenttarget changes the cell's background color (since each cell has an event listener)
-  ev.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 1)';
+  cellFillColor = ev.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 1)';
+  return cellFillColor;
 }
 
 createGridContainer();
-createGrid(16, 16);
+createGrid(16);

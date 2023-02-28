@@ -36,8 +36,8 @@ button {
 }
 
 div.row, div.cell {
-    background-color: lightgray;
-    border: 2px solid white;
+    background-color: white;
+    border: 2px solid black;
 }
 
 div.row {
