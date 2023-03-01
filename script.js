@@ -18,16 +18,17 @@ createGridContainer = () => {
   gridContainer.setAttribute('id', 'gridContainer');
   wrapper.appendChild(gridContainer);
 }
-
 removeExistingGrid = () => {
   //removes the grid container div from the DOM, removing all its child divs/cells too
   if (wrapper.contains(gridContainer)) {
     gridContainer.remove(); 
   }
 }
-
 changeGridNum = (newGridNum) => {
-  newGridNum = prompt('How many squares per side for new grid? (enter one number)', '_ x _?', 'Please enter a whole number');
+  //if user input is blank, or is NaN = not a number, prompt them again. trim removes extra spaces from either side of user's input
+  while (newGridNum === '' || isNaN(newGridNum)) {
+    newGridNum = prompt('How many squares per side for new grid? (enter one number)', '_ x _?', 'Please enter a whole number').trim();
+  }
   removeExistingGrid();
   createGridContainer();
   createGrid(newGridNum);
@@ -53,17 +54,18 @@ createGrid = (gridNum) => {
       return gridNum;
 }
 
-//.random() method generates a floating point (i.e. has a decimal) value between 0 and 1. 16777215 represents the total number of color values that exist from black to white (#000000 - #FFFFFF). 
-//Math.floor returns an integer equivalent of the previously generated floating point value. Then, toString(16) converts the integer value to base 16 / hexidecimal.
+//.random() method generates a floating point (i.e. has a decimal) value between 0 and 1. 255 represents the total number of color values that exist for R, G, and B. 
+//Math.floor returns an integer equivalent of the previously generated floating point value. 
 getRandomColor = (randColor) => {
-  randColor = "#" + Math.floor(Math.random()*16777215).toString(16);
+  randColor = Math.floor(Math.random()*255);
   return randColor
 }
 
 
 changeColor = (ev) => {
   //ev.currenttarget changes the cell's background color (since each cell has an event listener)
-  cellFillColor = ev.currentTarget.style.backgroundColor = getRandomColor();
+  let alpha = 1.0;
+  cellFillColor = ev.currentTarget.style.backgroundColor = `rgba(${getRandomColor()}, ${getRandomColor()}, ${getRandomColor()}, ${alpha})`;
   return cellFillColor;
 }
 
