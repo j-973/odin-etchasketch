@@ -54,10 +54,11 @@ createGrid = (gridNum) => {
       return gridNum;
 }
 
-//.random() method generates a floating point (i.e. has a decimal) value between 0 and 1. 255 represents the total number of color values that exist for R, G, and B. 
+//.random() method generates a floating point (i.e. has a decimal) value between 0 and 1. 256 represents the total number of color values that exist for R, G, and B, plus 1
+//must multiply math.random() by 256 to include all 255 possibilities per color, since math.random() by itself always generates a number less than 1
 //Math.floor returns an integer equivalent of the previously generated floating point value. 
 getRandomColor = (randColor) => {
-  randColor = Math.floor(Math.random()*255);
+  randColor = Math.floor(Math.random()*256);
   return randColor
 }
 
