@@ -25,9 +25,9 @@ removeExistingGrid = () => {
   }
 }
 changeGridNum = (newGridNum) => {
-  //if user input is blank, or is NaN = not a number, prompt them again. trim removes extra spaces from either side of user's input
-  while (newGridNum === '' || isNaN(newGridNum)) {
-    newGridNum = prompt('How many squares per side for new grid? (enter one number)', '_ x _?', 'Please enter a whole number').trim();
+  //if user input is blank, or is NaN = not a number, or is not between 1-100, prompt them again. trim removes extra spaces from either side of user's input
+ while (newGridNum === '' || isNaN(newGridNum) || newGridNum < 1 || newGridNum > 100) {
+    newGridNum = parseInt(prompt('How many squares per side for new grid? (enter one number between 1-100)', '_ x _?',).trim());
   }
   removeExistingGrid();
   createGridContainer();
