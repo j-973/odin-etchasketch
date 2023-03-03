@@ -1,4 +1,4 @@
-//page wrapper, button, and gridContainer of divs
+//PAGE ELEMENTS
 let wrapper = document.createElement('div');
 wrapper.setAttribute('id', 'wrapper');
 document.body.appendChild(wrapper);
@@ -8,9 +8,18 @@ title.setAttribute('id', 'title');
 wrapper.appendChild(title);
 title.textContent = 'Etch-a-Sketch';
 
+let buttonsContainer = document.createElement('div');
+buttonsContainer.setAttribute('id', 'buttonsContainer');
+wrapper.appendChild(buttonsContainer);
+
+let btnClearGrid = document.createElement('button');
+btnClearGrid.setAttribute('id', 'btnClearGrid');
+buttonsContainer.appendChild(btnClearGrid);
+btnClearGrid.textContent = 'Clear Grid';
+
 let btnNewGrid = document.createElement('button');
 btnNewGrid.setAttribute('id', 'btnNewGrid');
-wrapper.appendChild(btnNewGrid);
+buttonsContainer.appendChild(btnNewGrid);
 btnNewGrid.textContent = 'Change Grid Size';
 
 createGridContainer = () => {
@@ -24,6 +33,12 @@ removeExistingGrid = () => {
     gridContainer.remove(); 
   }
 }
+clearGrid = () => {
+  let cell = document.querySelectorAll('.cell');
+  cell.forEach(cell => {
+    cell.style.backgroundColor = null;
+  });
+}
 changeGridNum = (newGridNum) => {
   //if user input is blank, or is NaN = not a number, or is not between 1-100, prompt them again. trim removes extra spaces from either side of user's input
  while (newGridNum === '' || isNaN(newGridNum) || newGridNum < 1 || newGridNum > 100) {
@@ -35,6 +50,7 @@ changeGridNum = (newGridNum) => {
   return newGridNum;
 }
 
+btnClearGrid.addEventListener('click', clearGrid);
 btnNewGrid.addEventListener('click', changeGridNum);
 
 createGrid = (gridNum) => {
@@ -48,7 +64,7 @@ createGrid = (gridNum) => {
       cell.setAttribute('class', 'cell');
       cell.setAttribute('id', `cell-${r}-${c}`); //gives each cell a unique numerical id for color change tracking purposes
       document.getElementsByClassName('row')[r].appendChild(cell);
-      cell.addEventListener('mouseenter', changeColor); 
+      cell.addEventListener('mouseenter', changeColor);
     }
   }
       return gridNum;

@@ -23,6 +23,7 @@ h1 {
 button {
     display: flex;
     flex-direction: column;
+    flex: 1 1 0;
     opacity: 0.8;
     padding: 0.5rem;
     outline: none;
@@ -40,6 +41,11 @@ button {
     flex: 0 0 98vh;
     max-height: 98vh;
     max-width: 98vw;
+}
+
+#buttonsContainer {
+    display: flex;
+    flex-direction: row;
 }
 
 #gridContainer {
