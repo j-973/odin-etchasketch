@@ -61,13 +61,14 @@ createGrid = (gridNum) => {
     document.getElementById('gridContainer').appendChild(row);
     for (c = 0; c < gridNum; c++) {
       cell = document.createElement('div');
-      cell.setAttribute('class', 'cell');
+      cell.classList.add('cell');
+      cell.classList.add('border');
       cell.setAttribute('id', `cell-${r}-${c}`); //gives each cell a unique numerical id for color change tracking purposes
       document.getElementsByClassName('row')[r].appendChild(cell);
       cell.addEventListener('mouseenter', changeColor);
     }
   }
-      return gridNum;
+      return cell;
 }
 
 //.random() method generates a floating point (i.e. has a decimal) value between 0 and 1. 256 represents the total number of color values that exist for R, G, and B, plus 1
