@@ -12,6 +12,21 @@ let buttonsContainer = document.createElement('div');
 buttonsContainer.setAttribute('id', 'buttonsContainer');
 wrapper.appendChild(buttonsContainer);
 
+let btnEraser = document.createElement('button');
+btnEraser.setAttribute('id', 'btnEraser');
+buttonsContainer.appendChild(btnEraser);
+btnEraser.textContent = 'Eraser';
+
+let btnBlack = document.createElement('button');
+btnBlack.setAttribute('id', 'btnBlack');
+buttonsContainer.appendChild(btnBlack);
+btnBlack.textContent = 'Black';
+
+let btnRainbow = document.createElement('button');
+btnRainbow.setAttribute('id', 'btnRainbow');
+buttonsContainer.appendChild(btnRainbow);
+btnRainbow.textContent = 'Rainbow';
+
 let btnClearGrid = document.createElement('button');
 btnClearGrid.setAttribute('id', 'btnClearGrid');
 buttonsContainer.appendChild(btnClearGrid);
@@ -21,6 +36,12 @@ let btnNewGrid = document.createElement('button');
 btnNewGrid.setAttribute('id', 'btnNewGrid');
 buttonsContainer.appendChild(btnNewGrid);
 btnNewGrid.textContent = 'Change Grid Size';
+
+//CHANGING COLORS
+currentColor = 'rainbow';
+eraserSketch = () => currentColor = 'eraser'; 
+blackSketch = () => currentColor = 'black'; 
+rainbowSketch = () => currentColor = 'rainbow';
 
 createGridContainer = () => {
   let gridContainer = document.createElement('div');
@@ -33,23 +54,30 @@ removeExistingGrid = () => {
     gridContainer.remove(); 
   }
 }
+
 clearGrid = () => {
   let cell = document.querySelectorAll('.cell');
   cell.forEach(cell => {
     cell.style.backgroundColor = null;
   });
 }
+
 changeGridNum = (newGridNum) => {
-  //if user input is blank, or is NaN = not a number, or is not between 1-100, prompt them again. trim removes extra spaces from either side of user's input
- while (newGridNum === '' || isNaN(newGridNum) || newGridNum < 1 || newGridNum > 100) {
-    newGridNum = parseInt(prompt('How many squares per side for new grid? (enter one number between 1-100)', '_ x _?',).trim());
-  }
-  removeExistingGrid();
-  createGridContainer();
-  createGrid(newGridNum);
-  return newGridNum;
+  //if user input is blank, or is NaN = not a number, or is not between 1-100, give an alert. trim removes extra spaces from either side of user's input
+    newGridNum = parseInt(prompt('How many squares per side for new grid? (enter one number between 1-100)', '_ x _?').trim());
+    if (newGridNum === '' || isNaN(newGridNum) || newGridNum == null || newGridNum < 1 || newGridNum > 100) {
+      alert('Invalid! Please enter a single whole number between 1-100.');
+    } else {
+        removeExistingGrid();
+        createGridContainer();
+        createGrid(newGridNum);
+        return newGridNum;
+    }
 }
 
+btnEraser.addEventListener('click', eraserSketch);
+btnBlack.addEventListener('click', blackSketch);
+btnRainbow.addEventListener('click', rainbowSketch);
 btnClearGrid.addEventListener('click', clearGrid);
 btnNewGrid.addEventListener('click', changeGridNum);
 
@@ -79,11 +107,20 @@ getRandomColor = (randColor) => {
   return randColor
 }
 
-
 changeColor = (ev) => {
   //ev.currenttarget changes the cell's background color (since each cell has an event listener)
-  let alpha = 1.0;
-  cellFillColor = ev.currentTarget.style.backgroundColor = `rgba(${getRandomColor()}, ${getRandomColor()}, ${getRandomColor()}, ${alpha})`;
+  let alpha = 1.0; 
+  switch (currentColor) {
+    case 'eraser':
+      cellFillColor = ev.currentTarget.style.backgroundColor = null;
+      break;
+    case 'black':
+      cellFillColor = ev.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 1.0)';
+      break;
+    case 'rainbow':
+      cellFillColor = ev.currentTarget.style.backgroundColor = `rgba(${getRandomColor()}, ${getRandomColor()}, ${getRandomColor()}, ${alpha})`;
+      break;
+  }
   return cellFillColor;
 }
 
