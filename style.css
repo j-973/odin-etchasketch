@@ -27,7 +27,8 @@ button {
     opacity: 0.8;
     padding: 0.5rem;
     outline: none;
-    font-size: 1.2rem;
+    border: none;
+    font-size: 1.1rem;
     color: rgba(232, 166, 90, 1.0);
     background-color: rgba(255, 255, 255, 1.0);
 }
