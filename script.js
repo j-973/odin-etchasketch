@@ -63,7 +63,6 @@ removeExistingGrid = () => {
     gridContainer.remove(); 
   }
 }
-
 clearGrid = () => {
   let cell = document.querySelectorAll('.cell');
   cell.forEach(cell => {
@@ -84,7 +83,6 @@ changeGridNum = (newGridNum) => {
         return newGridNum;
     }
 }
-
 createGrid = (gridNum) => {
   //for every r rows (divs), there are c created cells (divs) nested within each row
   for (r = 0; r < gridNum; r++) {
@@ -102,8 +100,6 @@ createGrid = (gridNum) => {
   }
       return cell;
 }
-
-//
 addOpacity = (ev) => {
   let opacity = ev.currentTarget.style.opacity;
   const OPACITY_LIMIT = (opacity >= FULL_OPACITY);
@@ -123,7 +119,6 @@ getRandomColor = (randColor) => {
   randColor = Math.floor(Math.random()*256);
   return randColor
 }
-
 changeColor = (ev) => {
   //ev.currenttarget changes the cell's background color (since each cell has an event listener)
   let alpha = 1.0; 
@@ -134,6 +129,7 @@ changeColor = (ev) => {
       break;
     case 'black':
       cellFillColor = ev.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 1.0)';
+                      ev.currentTarget.style.opacity = FULL_OPACITY;
       break;
     case 'shade':
       cellFillColor = ev.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 1.0)'; 
@@ -141,11 +137,11 @@ changeColor = (ev) => {
       break;
     case 'rainbow':
       cellFillColor = ev.currentTarget.style.backgroundColor = `rgba(${getRandomColor()}, ${getRandomColor()}, ${getRandomColor()}, ${alpha})`;
+                      ev.currentTarget.style.opacity = FULL_OPACITY;
       break;
   }
   return cellFillColor;
 }
-
 
 btnEraser.addEventListener('click', eraserSketch);
 btnBlack.addEventListener('click', blackSketch);
