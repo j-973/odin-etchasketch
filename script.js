@@ -22,6 +22,11 @@ btnBlack.setAttribute('id', 'btnBlack');
 buttonsContainer.appendChild(btnBlack);
 btnBlack.textContent = 'Black';
 
+let btnShade = document.createElement('button');
+btnShade.setAttribute('id', 'btnShade');
+buttonsContainer.appendChild(btnShade);
+btnShade.textContent = 'Shade';
+
 let btnRainbow = document.createElement('button');
 btnRainbow.setAttribute('id', 'btnRainbow');
 buttonsContainer.appendChild(btnRainbow);
@@ -39,9 +44,13 @@ btnNewGrid.textContent = 'Change Grid Size';
 
 //CHANGING COLORS
 currentColor = 'rainbow';
+const STARTING_OPACITY = 0.1;
+const FULL_OPACITY = 1.0;
+const INCREMENT_OPACITY = 0.1;
 eraserSketch = () => currentColor = 'eraser'; 
 blackSketch = () => currentColor = 'black'; 
 rainbowSketch = () => currentColor = 'rainbow';
+shadeSketch = () => currentColor = 'shade';
 
 createGridContainer = () => {
   let gridContainer = document.createElement('div');
@@ -59,6 +68,7 @@ clearGrid = () => {
   let cell = document.querySelectorAll('.cell');
   cell.forEach(cell => {
     cell.style.backgroundColor = null;
+    cell.style.opacity = FULL_OPACITY;
   });
 }
 
@@ -74,12 +84,6 @@ changeGridNum = (newGridNum) => {
         return newGridNum;
     }
 }
-
-btnEraser.addEventListener('click', eraserSketch);
-btnBlack.addEventListener('click', blackSketch);
-btnRainbow.addEventListener('click', rainbowSketch);
-btnClearGrid.addEventListener('click', clearGrid);
-btnNewGrid.addEventListener('click', changeGridNum);
 
 createGrid = (gridNum) => {
   //for every r rows (divs), there are c created cells (divs) nested within each row
@@ -99,6 +103,19 @@ createGrid = (gridNum) => {
       return cell;
 }
 
+//
+addOpacity = (ev) => {
+  let opacity = ev.currentTarget.style.opacity;
+  const OPACITY_LIMIT = (opacity >= FULL_OPACITY);
+  if (opacity && (opacity < FULL_OPACITY)) {
+    ev.currentTarget.style.opacity = Number(opacity) + INCREMENT_OPACITY;
+} else if (OPACITY_LIMIT) {
+    opacity = FULL_OPACITY;
+} else {
+    opacity = (ev.currentTarget.style.opacity = STARTING_OPACITY);
+  }
+}
+
 //.random() method generates a floating point (i.e. has a decimal) value between 0 and 1. 256 represents the total number of color values that exist for R, G, and B, plus 1
 //must multiply math.random() by 256 to include all 255 possibilities per color, since math.random() by itself always generates a number less than 1
 //Math.floor returns an integer equivalent of the previously generated floating point value. 
@@ -113,9 +130,14 @@ changeColor = (ev) => {
   switch (currentColor) {
     case 'eraser':
       cellFillColor = ev.currentTarget.style.backgroundColor = null;
+                      ev.currentTarget.style.opacity = FULL_OPACITY;
       break;
     case 'black':
       cellFillColor = ev.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 1.0)';
+      break;
+    case 'shade':
+      cellFillColor = ev.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 1.0)'; 
+      addOpacity(ev);
       break;
     case 'rainbow':
       cellFillColor = ev.currentTarget.style.backgroundColor = `rgba(${getRandomColor()}, ${getRandomColor()}, ${getRandomColor()}, ${alpha})`;
@@ -123,6 +145,14 @@ changeColor = (ev) => {
   }
   return cellFillColor;
 }
+
+
+btnEraser.addEventListener('click', eraserSketch);
+btnBlack.addEventListener('click', blackSketch);
+btnShade.addEventListener('click', shadeSketch);
+btnRainbow.addEventListener('click', rainbowSketch);
+btnClearGrid.addEventListener('click', clearGrid);
+btnNewGrid.addEventListener('click', changeGridNum);
 
 createGridContainer();
 createGrid(16);
