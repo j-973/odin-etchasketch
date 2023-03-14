@@ -43,10 +43,11 @@ buttonsContainer.appendChild(btnNewGrid);
 btnNewGrid.textContent = 'Change Grid Size';
 
 //CHANGING COLORS
-currentColor = 'rainbow';
 const STARTING_OPACITY = 0.1;
 const FULL_OPACITY = 1.0;
 const INCREMENT_OPACITY = 0.1;
+currentColor = 'rainbow';
+
 eraserSketch = () => currentColor = 'eraser'; 
 blackSketch = () => currentColor = 'black'; 
 rainbowSketch = () => currentColor = 'rainbow';
@@ -66,15 +67,15 @@ removeExistingGrid = () => {
 clearGrid = () => {
   let cell = document.querySelectorAll('.cell');
   cell.forEach(cell => {
-    cell.style.backgroundColor = null;
-    cell.style.opacity = FULL_OPACITY;
+    cell.style.backgroundColor = "initial";
+    cell.style.opacity = "initial";
   });
 }
 
 changeGridNum = (newGridNum) => {
   //if user input is blank, or is NaN = not a number, or is not between 1-100, give an alert. trim removes extra spaces from either side of user's input
     newGridNum = parseInt(prompt('How many squares per side for new grid? (enter one number between 1-100)', '_ x _?').trim());
-    if (newGridNum === '' || isNaN(newGridNum) || newGridNum == null || newGridNum < 1 || newGridNum > 100) {
+    if (newGridNum === '' || isNaN(newGridNum) || newGridNum == "initial" || newGridNum < 1 || newGridNum > 100) {
       alert('Invalid! Please enter a single whole number between 1-100.');
     } else {
         removeExistingGrid();
@@ -124,12 +125,12 @@ changeColor = (ev) => {
   let alpha = 1.0; 
   switch (currentColor) {
     case 'eraser':
-      cellFillColor = ev.currentTarget.style.backgroundColor = null;
-                      ev.currentTarget.style.opacity = FULL_OPACITY;
+      cellFillColor = ev.currentTarget.style.backgroundColor = "initial";
+                      ev.currentTarget.style.opacity = "initial";
       break;
     case 'black':
       cellFillColor = ev.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 1.0)';
-                      ev.currentTarget.style.opacity = FULL_OPACITY;
+                      ev.currentTarget.style.opacity = "initial";
       break;
     case 'shade':
       cellFillColor = ev.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 1.0)'; 
@@ -137,7 +138,7 @@ changeColor = (ev) => {
       break;
     case 'rainbow':
       cellFillColor = ev.currentTarget.style.backgroundColor = `rgba(${getRandomColor()}, ${getRandomColor()}, ${getRandomColor()}, ${alpha})`;
-                      ev.currentTarget.style.opacity = FULL_OPACITY;
+                      ev.currentTarget.style.opacity = "initial";
       break;
   }
   return cellFillColor;
