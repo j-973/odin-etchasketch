@@ -57,6 +57,7 @@ createGridContainer = () => {
   let gridContainer = document.createElement('div');
   gridContainer.setAttribute('id', 'gridContainer');
   wrapper.appendChild(gridContainer);
+  gridContainer.addEventListener('contextmenu', toggleGridlines);
 }
 removeExistingGrid = () => {
   //removes the grid container div from the DOM, removing all its child divs/cells too
@@ -65,13 +66,12 @@ removeExistingGrid = () => {
   }
 }
 clearGrid = () => {
-  let cell = document.querySelectorAll('.cell');
-  cell.forEach(cell => {
-    cell.style.backgroundColor = "initial";
-    cell.style.opacity = "initial";
-  });
+  let cells = document.getElementsByClassName('cell');
+  for (c = 0; c < cells.length; c++) {
+    cells[c].style.backgroundColor = "initial";
+    cells[c].style.opacity = "initial";
+  }
 }
-
 changeGridNum = (newGridNum) => {
   //if user input is blank, or is NaN = not a number, or is not between 1-100, give an alert. trim removes extra spaces from either side of user's input
     newGridNum = parseInt(prompt('How many squares per side for new grid? (enter one number between 1-100)', '_ x _?').trim());
@@ -101,6 +101,16 @@ createGrid = (gridNum) => {
   }
       return cell;
 }
+
+//toggles cell border class for each cell c in cells array on right-click. preventDefault() stops the right-click menu from showing up
+toggleGridlines = (ev) => {
+  ev.preventDefault();
+  let cells = document.getElementsByClassName('cell');
+  for (c = 0; c < cells.length; c++) {
+    cells[c].classList.toggle('border');
+  }
+}
+
 addOpacity = (ev) => {
   let opacity = ev.currentTarget.style.opacity;
   const OPACITY_LIMIT = (opacity >= FULL_OPACITY);
